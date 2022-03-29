@@ -1,0 +1,22 @@
+--- ubiquity	2015-01-02 13:26:26.748251749 -0500
++++ ubiquity	2015-01-02 13:27:52.291000221 -0500
+@@ -11,7 +11,7 @@
+ sys.path.insert(0, '/usr/lib/ubiquity')
+ 
+ from ubiquity import osextras
+-
++from subprocess import call
+ 
+ def main():
+     newargv = []
+@@ -34,6 +34,10 @@
+ 
+     if os.getuid() == 0:
+         # no privilege escalation required
++
++        #Turn off all swaps to fix issues with zram
++        call(["swapoff", "--all"])	
++        
+         inner = ['/usr/lib/ubiquity/bin/ubiquity'] + newargv
+ 
+         # Make sure ibus works
